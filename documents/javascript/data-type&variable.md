@@ -2,6 +2,8 @@
 
 ## Primitive Type
 
+- 값 자체가 메모리에 저장 됨
+
 - number
 - string
 - boolean
@@ -21,16 +23,25 @@ console.log(`value: ${symbol1.description});
 // symbol을 그냥 출력하면 에러가 되므로 symbol1.description 같은 형태로 출력한다.
 ```
 
-## Object
+## Object Type
+
+- Object의 주소가 메모리에 저장 됨
 
 - array
 - function
 - date
 - regexp
 
+---
+
+Immutable data types : premitive types, frozen objects
+Mutable data types: all objects
+
 # Variable
 
 ## Var
+
+- Read & write
 
 - Hoisting 때문에 선언 하기 전에 값을 할당하거나 불러 올 수 있다. 그래서 문제가 생길 수 있으므로, let이나 const를 사용하는걸 권장한다.
 
@@ -44,6 +55,8 @@ var a = 1;
 
 ## Let
 
+- Read & write
+
 - ES6 에서 추가됨.
 - 값을 변경 할 수 있음. (mutable)
 - Block Spoce
@@ -53,6 +66,8 @@ let a = 1;
 ```
 
 ## Constans
+
+- Read only
 
 - 첫 할당 이후로 변경이 불가능한 데이터 타입 (immutable)
 
