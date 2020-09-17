@@ -29,6 +29,7 @@ class Person {
   }
 
   // methods
+  // 클래스에서 함수를 선언 할 때에는 function 이라는 키워드를 사용하지 않아도 된다.
   speak() {
     console.log(`${this.name}: hello!`);
   }
