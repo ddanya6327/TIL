@@ -13,3 +13,12 @@ https://create-react-app.dev/docs/getting-started
 - ESLint
 - Jest
 - PostCSS
+
+## public
+
+- 정적인 파일들을 넣는 곳. (변하지 않는)
+  - HTML, img 같은
+
+## src
+
+- 동적인 파일 (주로 source)
