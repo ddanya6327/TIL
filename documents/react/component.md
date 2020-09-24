@@ -14,6 +14,17 @@
 - state와 life cycle가 없음.
   - 단, React 16.8에서는 React Hook이 도입되어 state와 life cycle를 사용 할 수 있게 됨.
 
+### memo
+
+- 렌더링 결과를 메모이징(memoizing) 함으로써 불필요한 리렌더링을 하지 않음.
+- 성능 최적화를 위해 사용
+
+```javascript
+const MyComponent = React.memo(function MyComponent(props) {
+  /* props를 사용하여 렌더링 */
+});
+```
+
 ## Naming
 
 - Component도 JavaScript 이므로 .js를 붙이면 순수 JavaScript와 구분하기 힘들다. 파일명은 소문자로 시작하고 확장자는 .jsx를 붙이면 구분하기 쉽다.
