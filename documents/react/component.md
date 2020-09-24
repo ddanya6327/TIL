@@ -18,3 +18,20 @@
 
 - Component도 JavaScript 이므로 .js를 붙이면 순수 JavaScript와 구분하기 힘들다. 파일명은 소문자로 시작하고 확장자는 .jsx를 붙이면 구분하기 쉽다.
   - app.jsx
+
+# Pure Component
+
+- shouldComponentUpdate 가 이미 구현되어 있고 props와 state를 가볍게(shallow) 비교 한 뒤 변경이 있는 경우에만 리렌더링 한다.
+  - Object 형태의 state나 props가 있는 경우, 그 안의 value가 변경되면 Pure Component는 동일 하다고 판단.
+    - habit = [{ name: 'yang', age: 2}] 같은 형태의 props가 전달된다면, age가 5로 바뀌어도 Object의 형태는 그대로이므로 변경이 없다고 판단 함.
+    - 이런 경우, habit = [{ name: 'yang', age: 2}] 이 아닌, habit.age 같은 형태로 props를 보내면 age는 reference 형태가 아니므로 값을 바뀐 걸 눈치 챔.
+
+```javascript
+// PureComponent 를 import
+import React, { PureComponent } from "react";
+
+// PureComponent 를 extend
+class HabitAddForm extends PureComponent {
+  ...
+}
+```
