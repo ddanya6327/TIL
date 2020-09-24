@@ -5,8 +5,8 @@
   - 사용자에게 UI를 보여주고 Event를 처리하는 일을 할 수 있다.
 
 - React 의 주요 키워드
-  - Components
-  - Re-render
+  - _Components_ \*
+  - _Re-render_ \*
   - Virtual DOM
 
 https://reactjs.org/
