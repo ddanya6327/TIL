@@ -25,6 +25,14 @@ const MyComponent = React.memo(function MyComponent(props) {
 });
 ```
 
+```javascript
+function Title(props) {
+  ...
+}
+
+export default React.memo(Title);
+```
+
 ## Naming
 
 - Component도 JavaScript 이므로 .js를 붙이면 순수 JavaScript와 구분하기 힘들다. 파일명은 소문자로 시작하고 확장자는 .jsx를 붙이면 구분하기 쉽다.
@@ -45,4 +53,31 @@ import React, { PureComponent } from "react";
 class HabitAddForm extends PureComponent {
   ...
 }
+```
+
+# TIP
+
+- Component나 DOM의 key를 변경하면 삭제되었다가 다시 추가된다.
+
+```javascript
+// key 값을 변경하면 속성이 바뀌는게 아니라 DOM이 삭제되고 다시 추가 됨.
+<div key={keyId}>
+  ...
+</div>
+
+// Component도 마찬가지로 삭제되고 다시 추가 됨.
+<Title key={keyId}>
+  ...
+</Title>
+```
+
+=> 여기서 주의점은, 삭제되고 다시 추가되면 그 Component의 상태값(state)이 초기화 된다.
+
+- 조건부 랜더링의 경우도 마찬가지로 unmount 되었다가 mount 되었다가 함.
+
+```javascript
+render(
+  // 아래의 경우처럼 조건부로 component가 생성되는 경우, 상태값이 초기화 될 수 있음을 유의
+  {flag ? <Title> : null}
+)
 ```

@@ -36,3 +36,4 @@ https://reactjs.org/
   - 랜덤 함수 사용 X, 외부 상태 변경 X
   - input이 같다면 output도 같아야 한다.
 - state는 불변 변수로 관리한다.
+  - 직접 수정을 할 경우 render가 되지 않을 수 있다.

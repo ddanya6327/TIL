@@ -117,7 +117,6 @@ const Habit = props => { // { } 블록의 내용 전부가 반복해서 호출 �
     });
 
     return (
-        // 이 경우, 매번 handleIncrement를 생성해서 전달 하므로, 자식들은 매 번 부모의 값이 갱신 되었다고 생각함
         <button onClick={handleIncrement}>Button</button>
     );
 }
@@ -143,3 +142,24 @@ useEffect(() => {
   console.log(`mounted & Updated!`);
 }, []);
 ```
+
+### TIP
+
+- function component 에서 부모의 속성 값(props)는 비구조화 할당을 하면 쓰기 편함
+
+```javascript
+function Title(props) {
+  return <p>{props.title}</p>;
+}
+```
+
+비구조화 할당의 경우
+
+```javascript
+function Title({ title })) {
+    return <p>{title}</p>; // title에 props를 붙이지 않아도 됨
+}
+```
+
+- 부모의 값이 바뀌면 자식 컴포넌트도 자동으로 render 되는데, 자식의 속성값이 바뀐 경우에만 render 되도록 하고 싶다면 React.memo를 사용하자.
+  - [React Memo에 대해](./component.md)
