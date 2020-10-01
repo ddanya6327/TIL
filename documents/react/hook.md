@@ -1,6 +1,6 @@
 # Hook
 
-- Function Component 에서도 상태값이나 Life Cycle를 관리 할 수 있도록 도와주는 함수
+- Function Component 에서도 상태값(state)이나 Life Cycle를 관리하거나 자식 요소에 접근 할 수 있도록 도와주는 함수
 
 - useState() 를 통해 선언할 수 있다.
 
@@ -14,6 +14,78 @@ function Example() {
       // 함수형 컴퍼넌트는 this를 붙이지 않아도 된다.
       <p>You clicked {count} times</p>
       <button onClick={() => setCount(count + 1)}>Click me</button>
+    </div>
+  );
+}
+```
+
+## useState 주의점
+
+- 리액트는 상태값 변경을 일괄(batch)로 처리한다.
+  - 내부에서 관리하는 이벤트의 경우. (2020/10 기준)
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+  function onClick() {
+    setCount(count + 1);
+    setCount(count + 1);
+    // count + 1 이 2번 실행되어 count는 2가 될 것 같지만 1이 된다.
+    // React는 상태값 변경을 batch로 처리하기 때문.
+    // 단, 리액트 내부가 아닌 외부에서 처리 할 경우 batch로 처리하지 않는다.
+  }
+  console.log("render called"); // 1번만 호출된다.
+
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={onClick}>증가</button>
+    </div>
+  );
+}
+```
+
+- 상태값 변경 함수의 인자에 함수를 넣으면 정상적으로 작동
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+  function onClick() {
+    setCount((v) => v + 1);
+    setCount((v) => v + 1);
+    // 위의 경우는 처리전에 값을 불러오므로 정상적으로 count는 2가 된다.
+  }
+  console.log("render called"); // 1번만 호출된다.
+
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={onClick}>증가</button>
+    </div>
+  );
+}
+```
+
+- 리액트 내부가 아닌 외부에서 처리 할 경우
+
+```javascript
+function App() {
+  const [count, setCount] = useState(0);
+  function onClick() {
+    setCount((v) => v + 1);
+    setCount((v) => v + 1);
+  }
+  useEffect(() => {
+    window.addEventListener("click", onClick);
+    return () => window.removeEventListener("click", onClick);
+    // 이 경우 Log는 2번 호출된다.
+  });
+  console.log("render called");
+
+  return (
+    <div>
+      <h2>{count}</h2>
+      <button onClick={onClick}>증가</button>
     </div>
   );
 }
@@ -125,6 +197,11 @@ const Habit = props => { // { } 블록의 내용 전부가 반복해서 호출 �
 ## useEffect
 
 - componentDidMount 와 componentDidUpdate를 결합한 함수
+
+- useEffect(function, [값]);
+  - function : 부수효과 함수
+  - [값] : 의존성 배열, 배열의 값이 변경되면 부수효과 함수가 실행됨
+    - [] : 빈 배열의 경우 mount 되는 한 번만 실행 (unmount 될 때도 실행)
 
 ```javascript
 // component가 mount 되거나 update 될 때 실행됨

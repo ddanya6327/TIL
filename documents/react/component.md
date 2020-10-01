@@ -38,6 +38,12 @@ export default React.memo(Title);
 - Component도 JavaScript 이므로 .js를 붙이면 순수 JavaScript와 구분하기 힘들다. 파일명은 소문자로 시작하고 확장자는 .jsx를 붙이면 구분하기 쉽다.
   - app.jsx
 
+## Component가 Render 되는 타이밍
+
+- render 함수를 호출 할 때
+- 컴포넌트 내부의 상태값 변경 함수를 호출 할 때
+  - 단, 부모의 값이 바뀌면 자식 컴포넌트도 재 랜더링
+
 # Pure Component
 
 - shouldComponentUpdate 가 이미 구현되어 있고 props와 state를 가볍게(shallow) 비교 한 뒤 변경이 있는 경우에만 리렌더링 한다.
