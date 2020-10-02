@@ -240,3 +240,23 @@ function Title({ title })) {
 
 - 부모의 값이 바뀌면 자식 컴포넌트도 자동으로 render 되는데, 자식의 속성값이 바뀐 경우에만 render 되도록 하고 싶다면 React.memo를 사용하자.
   - [React Memo에 대해](./component.md)
+
+### 주의점
+
+- Hook은 컴포넌트의 최상위(the top of level)에서 호출한다.
+  - 또한, React의 Hook은 호출되는 순서에 의존하기 때문에 호출하는 순서는 항상 같아야 한다.
+  - if, for 같이 조건문이나 반복문 내부에 Hook을 사용하면 안 된다. 호출되는 횟수가 달라 질 수 있기 때문
+
+```javascript
+if (!user) {
+  return null;
+}
+const [value, setValue] = useState();
+// 이 경우도 user 정보가 없다면 return 되므로 Hook의 호출 횟수가 달라 질 수 있다. 그러므로 Hook은 항상 최상위에 호출 하는 것이 좋다.
+```
+
+- React 함수 안에서만 Hook을 호출 해야 한다.
+  - React의 함수 컴포넌트에서 호출
+  - Custom Hook 에서 호출
+
+[Hook 규칙](https://ko.reactjs.org/docs/hooks-rules.html)
