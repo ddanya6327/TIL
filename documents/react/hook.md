@@ -220,6 +220,26 @@ useEffect(() => {
 }, []);
 ```
 
+## 그 외 내장 훅
+
+- useMemo
+- useCallback
+  - 함수 memoization에 특화된 코드
+  - 의존성 배열로 관리
+- useReducer
+  - 여러 개의 상태 값을 관리 할 때에 좋음.
+  - https://ko.reactjs.org/docs/hooks-reference.html#usereducer
+- useImperativeHandle
+  - ForwardRef 와 함께 사용
+  - 모에게 꼭 자식의 실제 reference를 보내지 않고 우리가 원하는 일종의 proxy reference를 보내는게 가능해짐
+- useLayoutEffect
+  - useEffect 훅과 거의 비슷하게 동작하지만 부수효과 함수를 동기로 호출함.
+  - 랜더링 직후에 돔 요소 값을 읽거나 조건에 따라 컴포넌트를 재 랜더링 하고 싶은 경우 적합.
+    - 그렇기 때문에 useLayoutEffect 훅에서 연산을 많이 하면 브라우저가 멈춰 보일 수 있음.
+    - 특별한 이유가 없다면 useEffect를 사용.
+- useDebugValue
+  - 리액트 개발자 도구에서 편리하게 디버깅 할 수 있도록 사용하는 훅
+
 ### TIP
 
 - function component 에서 부모의 속성 값(props)는 비구조화 할당을 하면 쓰기 편함
