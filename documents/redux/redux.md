@@ -26,7 +26,7 @@
   -> 스토어가 상태값을 받아서 저장
   -> 액션 처리가 끝나면 옵저버들에게 알려주고 뷰가 그 값을 갱신
 
-### 액션
+### Action
 
 - type 속성 값을 가지고 있는 객체
   - type 속성은 유니크 해야 함. (액션을 구분하기 위해)
@@ -59,7 +59,7 @@ export function addTodo({ title, priority }) {
 }
 ```
 
-### middleware
+### Middleware
 
 - 액션이 dispatch 되어서 reducer를 처리 하기 전에 수행되는 작업. (사전 등록 필요)
 
@@ -99,3 +99,61 @@ store.dispatch({ type: "someAction" });
 // middleware1 end
 // middleware2 end
 ```
+
+### Reducer
+
+- 액션이 발생 했을 때, 새로운 상태 값을 만드는 함수
+
+  - redux 에서 상태 값을 수정할 때는 action 객체와 함께 dispatch를 호출해야 한다.
+
+  - 상태 값은 불변 객체로 관리한다.
+
+```javascript
+// 리덕스가 처음 실행 될 때, state에 undifined를 넣어서 reducer를 호출한다.
+function reducer(state = INITIAL_STATE, action) {
+    switch (action.type) { // action 객체의 type에 따라 해당하는 action 에 대한 처리를 해주면 됨.
+        // ...
+        case REMOVE_ALL:
+            return {
+                ...state,
+                todos: [],
+            };
+             // 데이터는 불변 객체로 관리 해야한다.
+        case REMOVE:
+            ...
+        default:
+            return state;
+    }
+}
+
+const INITIAL_STATE = { todos: [] };
+```
+
+- reducer 코드 작성시 주의점
+
+1. reference 값이 아닌 id 값으로 참조하기
+
+```javascript
+switch (action.type) {
+  case SET_SELECTED_PEOPLE:
+    // 이 경우, draft.selectedPeople 에는 find로 찾은 reference 값이 들어 있기 때문에 EDIT_PEOPLE_NAME 에서 수정이 실행되어도 draft.selectedPeople는 옛날 reference 값을 가지고 있어서 문제가 될 수 있다.
+    draft.selectedPeople = draft.peopleList.find(
+      (item) => item.id === action.id
+    );
+    // 그래서 주소가 아닌 id 값만 기억 해서 다른 곳에서 활용하는 식으로 하는게 좋다.
+    //draft.selectedPeople = action.id;
+    break;
+  case EDIT_PEOPLE_NAME:
+    const people = draft.peopleList.find((item) => item.id === action.id);
+    people.name = action.name;
+    break;
+  // ...
+}
+```
+
+2. 순수 함수로 작성하기 (부수 효과가 없어야 함.)
+
+- reducer 에서 서버 api를 호출한다면 매 호출시 결과가 달라 질 수 있으므로 순수함수가 아니다.
+- random 함수를 사용하면 입력이 같아도 출력이 다를 수 있기 때문에 순수 함수가 될 수 없다. (time 함수도 마찬가지)
+
+  - random 값이 필요하다면 action 객체를 호출 할 때 만들어서 넣어주는게 좋다.
