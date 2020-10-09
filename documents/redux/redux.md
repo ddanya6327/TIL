@@ -157,3 +157,17 @@ switch (action.type) {
 - random 함수를 사용하면 입력이 같아도 출력이 다를 수 있기 때문에 순수 함수가 될 수 없다. (time 함수도 마찬가지)
 
   - random 값이 필요하다면 action 객체를 호출 할 때 만들어서 넣어주는게 좋다.
+
+### Store
+
+- state를 저장하거나 액션 처리 완료를 외부에 알려주는 역할
+
+```javascript
+// createStore 함수를 이용하고 reducer를 파라메터로 받음
+const store = createStore(reducer);
+
+// 액션 처리가 끝난걸 알기 위해서는 store의 subscribe 메소드를 사용
+store.subscribe(() => {
+  console.log("action end");
+});
+```
