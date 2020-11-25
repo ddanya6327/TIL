@@ -73,6 +73,15 @@ const result = students.filter((student) => student.enrolled);
 // enrolled 이 true인 student 값들을 return
 ```
 
+- include()
+  - 배열에 특정 값이 있는지 확인. 있을 경우 true, 없으면 false를 반환.
+  - 데이터를 따로 반환하는게 아니므로 값이 있나 없나를 확인할때 유용.
+
+```javascript
+const arr = ["a", "b", "c"];
+const result = students.includes("b"); // true
+```
+
 - map()
   - 배열안의 모든 요소에게 callback을 적용한 값을 새로운 배열로 만들어 return
 
