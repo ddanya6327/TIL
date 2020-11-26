@@ -129,3 +129,38 @@ const fruit2 = { color: "blue", size: "big" };
 const mixed = Object.assign({}, fruit1, fruit2);
 // 위의 경우 color가 중복되지만, 덮어쓰기를 하기 때문에 fruit2의 color가 적용된다.
 ```
+
+## ES6+ 의 object
+
+- 더 간결하게 작성할 수 있다.
+
+```javascript
+var say = function () {
+  console.log("test");
+};
+var es = "ES";
+
+// ES5
+var oldObject = {
+  sayJS: function () {
+    console.log("JS");
+  },
+  say: say,
+};
+oldObject[es + 6] = "good";
+
+// ES6+
+const newObject = {
+  sayJS() {
+    // 익명함수를 사용하는 경우 function 을 입력하지 않아도 됨.
+    console.log("JS");
+  },
+  say, // 함수명과 같다면 say: say 같은 형태로 쓰지 않아도 됨.
+  [es + 6]: "good", // 동적 할당도 object 내부에서 가능
+};
+```
+
+```javascript
+{ data: data, value: value, length: length }
+// ES6+ : { data, value, length } 로도 정의 가능
+```

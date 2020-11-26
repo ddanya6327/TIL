@@ -1,5 +1,14 @@
 # Node.JS
 
+- chrome V8 JavaScript 엔진으로 빌드된 JavaScript 런타임
+  - 자바스크립트를 웹 브라우저가 아닌 환경에서 실행 할 수 있도록 도와주는 것
+
+## 특징
+
+- 이벤트 기반 (Event-driven)
+- 논블로킹 I/O (Non-Blocking)
+- 싱글 스레드 (Single-Thread)
+
 ## 일반(FrontEnd)의 JavaScript와의 차이점
 
 - Node.js 에서 글로벌 객체는 Window가 아닌 Global 이다.
