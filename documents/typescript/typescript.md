@@ -14,6 +14,24 @@ const total = mike.friendList.length;
 // TypeScript의 경우는 코드 작성중에 변수의 자료형을 알 수 있기 때문에 실행하지 않아도 알 수 있다.
 ```
 
+## 타입 주석(type annotation)과 타입 추론(type interface)
+
+```typescript
+let n: number = 1; // 타입 주석
+let m = 2; // 타입을 입력하지 않음. 타입 추론
+```
+
+- 타입 추론의 경우 값을 분석해서 타입을 자동으로 결정함
+
+## 튜플(tuple)
+
+- 배열과 같지만 저장되는 아이템의 데이터 타입이 모두 같으면 배열, 다르면 튜플
+
+```typescript
+let numberArray: number[] = [1, 2, 3]; // array
+let tuple: [boolean, number, string] = [true, 1, "Ok"]; // tuple
+```
+
 ## 설치
 
 - TypeScript 를 사용하기 위해서는 Node.js 가 필요
@@ -52,4 +70,12 @@ npx tsc --init
 ```
 npx tsc
 // *.ts 파일을 JS로 변환한 *.js가 생성 됨.
+```
+
+# TIP
+
+- npx tsc를 이용하면 ts파일을 js로 바꾸고 -> 바뀐 js를 node로 실행해야 하지만, ts-node 를 설치하면 ts -> js와 실행을 함께 해준다.
+
+```
+npm i -g ts-node
 ```

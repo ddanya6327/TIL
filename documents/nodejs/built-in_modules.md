@@ -34,13 +34,12 @@
 
 ## Crypto
 
-- 데이터 암호화 (단방향)
+- 데이터 암호화
   - https://nodejs.org/api/crypto.html
+  - 복호화가 불가능한 단방향 방식과 복호화가 가능한 양방향 방식이 있음.
 
 ```javascript
 const crypto = require("crypto");
 
 crypto.createHash("sha512").update("password").digest("base64");
 ```
-
-- 복호화가 불가능하다.
