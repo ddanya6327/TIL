@@ -135,3 +135,21 @@ const pp: PP = {
   // ...
 };
 ```
+
+## 익명 인터페이스(anonymous interface)
+
+```typescript
+let ai: {
+  name: string;
+  age: number;
+  etc?: boolean;
+} = { name: "Jack", age: 32 };
+```
+
+- 주로 함수를 구현할 때 사용
+
+```typescript
+function printMe(me: { name: string; age: number; etc?: boolean }) {
+  // ...
+}
+```

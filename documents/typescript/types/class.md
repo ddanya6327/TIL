@@ -83,6 +83,20 @@ class Person {
 const person = new Person("test", 11); // name 은 자동 초기화
 ```
 
+## interface
+
+```typescript
+interface Iperson4 {
+  name: string;
+  age?: number;
+}
+
+class Person4 implements IPerson4 {
+  name: string;
+  age: number;
+}
+```
+
 ## getter, setter
 
 ```typescript
