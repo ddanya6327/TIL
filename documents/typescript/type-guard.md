@@ -1,6 +1,6 @@
 # Type Guard
 
-## Type Assertion
+## Type Assertion (타입 단언)
 
 ```typescript
 class Character {
