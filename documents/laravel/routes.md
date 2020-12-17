@@ -155,3 +155,153 @@ Route::group(function () {
     });
 })
 ```
+
+## Route middleware
+
+```php
+Route::middleware('auth')->group(function() {
+    Route::get('dashboard', function() {
+        return view('dashboard');
+    });
+        Route::get('account', function() {
+        return view('account');
+    });
+})
+```
+
+- Controller에도 Middleware를 적용 할 수 있다.
+
+```php
+class DashboardController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+
+        $this->middleware('admin-auth')
+            ->only('editUsers');
+
+        // ...
+    }
+}
+```
+
+## 시간당 접속 제한
+
+- RouteServiceProvider의 RateLimiter 퍼사드의 for 메서드를 이용
+
+## 접두사(prefix)
+
+```php
+// 접두사를 붙인 그룹의 '/' 는 '/dashboard' 가 된다.
+Route::prefix('dashboard')->group(function () {
+    Route::get('/', function () {
+        // '/dashboard'
+    });
+    Route::get('users', function () {
+        // '/dashboard/users'
+    });
+})
+```
+
+## 라우트가 어디에도 해당하지 않는 경우
+
+```php
+// 라라벨 5.6 이후 버전만 가능
+Route::fallback(function () {
+    //
+})
+```
+
+## 서브 도메인
+
+```php
+Route::domain('api.myapp.com')->group(function () {
+    Route::get('/', function () {
+        //
+    });
+})
+```
+
+## View
+
+```php
+Route::get('/', function() {
+    return view('home');
+})
+
+// `resources` 디렉토리의 `views/home.blade.php` 또는 `views/home.php` 파일을 찾음
+```
+
+변수를 같이 전달하고 싶은 경우
+
+```php
+Route::get('tasks', function() {
+    return view('tasks.index')
+        ->with('tasks', 'abc');
+})
+
+// `resources` 디렉토리의 `views/tasks/index.blade.php` 또는 `views/tasks/index.php` 파일을 찾고, 'abc'값을 tasks라는 변수명으로 전달.
+```
+
+View 파일만 보여주면 되는 경우, 간단하게 작성 할 수 있다.
+
+```php
+// resources/view/welcome.blade.php
+Route::view('/', 'welcome');
+
+// 간단하게 변수를 전달하는 방법
+Route::view('/', 'welcome', ['User' => 'Michael']);
+```
+
+공유변수가 필요한 경우
+
+```php
+view()->share('variableName', 'variableValue');
+```
+
+## Resource Controller
+
+리소스 컨트롤러 생성
+
+`php artisan make:controller [컨트롤러 이름] --resource`
+
+리소스 컨트롤러 연결
+
+```php
+// routes/web.php
+
+use App\Http\Controller\TaskController;
+
+Route:resource('tasks', TaskController::class);
+```
+
+### API 리소스 컨트롤러
+
+라라벨 5.6부터 지원
+
+`php artisan make:controller TaskController --api`
+
+```php
+// routes/api.php
+
+use App\Http\Controller\TaskController;
+
+Route:apiResource('tasks', TaskController::class);
+```
+
+## 라우트 캐싱
+
+등록된 라우트를 캐시파일로 만듬
+
+`php artisan route:cache`
+
+라우트 캐시 삭제
+
+`php artisan route:clear`
+
+- 캐시된 파일이 있으면 라우트를 수정해도 수정 사항이 반영이 안되므로 갱신 해줘야 한다.
+
+## CORS 처리
+
+config\cors.php 파일에서 설정 가능
