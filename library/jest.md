@@ -26,7 +26,7 @@ npm install jest --save-dev
 ## jest의 파일 구조
 
 - describe : 여러 관련 테스트를 그룹화 하는 블록
-- it : 개별 테스트를 수행하는 곳. 문장처럼 설명한다.
+- it (또는 test) : 개별 테스트를 수행하는 곳. 문장처럼 설명한다.
 
 ```javascript
 describe("TEST CASE", () => {
@@ -89,4 +89,76 @@ mockFn(["b", "c"]);
 expect(mockFn).toBeCalledTimes(2);
 expect(mockFn).toBeCalledWith("a");
 expect(mockFn).toBeCalledWith(["b", "c"]);
+```
+
+## node 환경에서 Mongoose를 Jest로 테스트 할 경우
+
+Jest의 기본 테스트 환경은 jsdom 이지만, mongoose에서는 jsdom을 지원하지 않는다. 문제를 해결하기 위해서는 jest의 test 환경을 node로 변경한다.
+-> `jest.config.js` 파일을 생성하고
+
+```javascript
+module.exports = {
+  testEnviroment: "node",
+};
+```
+
+## 공통 코드 줄이기 (beforeEach)
+
+공통적으로 실행 되어야 할 코드가 있다면 beforeEach에 작성하여 코드를 줄일 수 있다.
+
+```javascript
+// beforeEach 사용 전
+it("test1") {
+  dummy = dummyData;
+  // ...
+}
+
+it("test2") {
+  dummy = dummyData;
+  // ...
+}
+
+it("test3") {
+  dummy = dummyData;
+  // ...
+}
+```
+
+```javascript
+// beforeEach 사용
+
+beforeEach(() => {
+  dummy = dummyData;
+})
+
+it("test1") {
+  // ...
+}
+
+it("test2") {
+  // ...
+}
+
+it("test3") {
+  // ...
+}
+
+// describe 내부나 외부에서도 사용 가능.
+```
+
+## async await 를 사용하는 함수의 경우
+
+- 단위 테스트에도 async await를 넣어줘야 한다.
+
+# node-mocks-http
+
+## Unit Test 에서 request, response 객체를 얻으려면?
+
+`node-mocks-http` 모듈을 이용한다.
+
+- https://github.com/howardabrams/node-mocks-http
+
+```javascript
+req = httpMocks.createRequest();
+res = httpMocks.createResponse();
 ```
