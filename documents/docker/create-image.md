@@ -46,7 +46,7 @@ CMD ["executable"]
 
 - 해당 디렉토리에서 dockerfile이라는 파일을 찾아서 도커 클라이언트에 전달해준다.
 
-`docker bwuild ./`
+`docker build ./`
 
 ### build시 이미지에 대한 이름을 주고 싶다면?
 
