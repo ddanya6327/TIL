@@ -123,3 +123,27 @@ ex) docker로 express 서버를 구동하는 이미지를 run 해도 localhost:8
 docker 내부의 네트워크가 8080 포트를 사용하고 있다면?
 `docker run -p 49160:8080 [이미지이름]`
 내 로컬호스트 네트워크 49160 포트를 적용하면 컨테이너의 8080에 맵핑 하겠다는 뜻
+
+## Dockerfile.dev
+
+Docker 파일의 경우, 여러개가 있을 수 있다.
+개발용 환경에서는 Dockerfile.dev 이름으로 작성해서 사용하는게 좋다. (관용적)
+
+단, 이 경우 실행시 `docker build -f Dockerfile.dev` 로 Dockerfile.dev 로 .dev 파일을 쓰도록 명시 해준다.
+
+## Docker 환경의 React 갱신이 안되는 경우
+
+리액트 핫로딩 설정이 안되어 있어서 안됨.
+docker 실행시에 `-e CHOKIDAR_USEPOLLING=true` 옵션을 붙여준다.
+
+예)
+`docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v /usr/src/app/node_modules -v ${PWD}:/usr/src/app yang/docker-react-app`
+
+### docker-compose 의 경우는
+
+docker-compose.yml의 react 컨테이너에 아래의 내용을 추가한다.
+
+```yml
+environment:
+  - CHOKIDAR_USEPOLLING=true
+```
