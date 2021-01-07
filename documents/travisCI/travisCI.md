@@ -35,3 +35,25 @@ script:
 after_success:
   - echo "Test Success"
 ```
+
+### deploy
+
+```yml
+deploy:
+  # 외부 서비스 표시 (s3, elasticbeanstalk, firebase 등등)
+  provider: elasticbeanstalk
+  # 현재 사용하고 있는 AWS의 서비스가 위치하고 있는 물리적 장소
+  region: "ap-northeast-1"
+  # 생성된 어플리케이션 이름
+  app: "docker-react-app"
+  # elasticbeanstalk 환경의 이름
+  env: "DockerReactApp-env"
+  # 해당 elasticbeanstalk s3 버켓 이름
+  bucket_name: "elasticbeanstalk-ap-northeast-XXXXX"
+  # 어플리케이션 이름과 동일
+  bucket_path: "docker-react-app"
+
+  on:
+    # github의 브랜치. 이 브랜치에 merge 된 경우 배포를 하겠다.
+    branch: master
+```
