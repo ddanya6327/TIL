@@ -139,6 +139,12 @@ docker 실행시에 `-e CHOKIDAR_USEPOLLING=true` 옵션을 붙여준다.
 예)
 `docker run -it -p 3000:3000 -e CHOKIDAR_USEPOLLING=true -v /usr/src/app/node_modules -v ${PWD}:/usr/src/app yang/docker-react-app`
 
+### window 10의 node.js의 nodemon이 재대로 동작하지 않을 때
+
+package.json 의 nodemon 실행 구문에 -L 옵션을 넣어준다.
+
+`"dev": "nodemon -L server.js"`
+
 ### docker-compose 의 경우는
 
 docker-compose.yml의 react 컨테이너에 아래의 내용을 추가한다.
