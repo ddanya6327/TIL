@@ -35,3 +35,16 @@ https://www.google.com/search?q=hello
 - query parameter(q=hello&hl=ko)
     - key=value 형태
     - ?로 시작, &로 추가 가능
+
+# 웹 브라우저의 요청 흐름
+
+> https://www.google.com/search?q=hello 라고 검색한다면?
+
+www.google.com 을 DNS에서 조회한다. (port는 https 기본 포트 443을 사용)
+
+1. 웹 브라우저가 http 요청 메세지 생성
+ - ex) `GET /search?q=hello&hl=ko HTTP/1.1 Host:www.google.com` 같은 형태
+
+2. SOCKET 라이브러리를 통해 전달(TCP/IP)
+
+3. TCP/IP 패킷 생성, HTTP 메세지 포함
